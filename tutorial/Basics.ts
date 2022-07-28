@@ -1,11 +1,9 @@
-import './App.css';
-
 //Variable declarations
 //-----------------------
-let name:string;
-let age: number | string;
-let isStudent:boolean;
-let hobbies: string[];
+let name:string; // string
+let age: number | string; // number or string
+let isStudent:boolean; // boolean
+let hobbies: string[]; // array of strings
 let role:[number, string]; // Contains one number & one string
 let anything : any; // Not recommended
 let notKnown: unknown; // Instead of any, if we don't know what it returns
@@ -42,6 +40,8 @@ interface Guy extends Person {
 }
 
 
+
+
 //Functions
 //-----------------------
 
@@ -53,11 +53,3 @@ function printName(name:string)
 
 let printNameTwo: (name: string) => void; // Returns undefined
 let printNameThree: (name: string) => never; // Returns nothing
-
-function App() {
-  return (
-    <p>Hello world</p>
-  );
-}
-
-export default App;

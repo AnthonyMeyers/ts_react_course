@@ -53,3 +53,15 @@ function printName(name:string)
 
 let printNameTwo: (name: string) => void; // Returns undefined
 let printNameThree: (name: string) => never; // Returns nothing
+
+
+//UseStates
+//-----------------------
+
+/*
+
+const [count, setCount] = useState<number>(5);
+const [name, setName] = useState<string>("");
+const [names, setNames] = useState<string[]>([]);
+
+*/

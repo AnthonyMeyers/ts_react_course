@@ -1,62 +1,32 @@
 import './App.css';
+import InputField from './components/InputField';
+import React, { useState } from 'react';
+import { Todo } from './components/model';
+import TodoList from './components/TodoList';
 
-//Variable declarations
-//-----------------------
-let name:string;
-let age: number | string;
-let isStudent:boolean;
-let hobbies: string[];
-let role:[number, string]; // Contains one number & one string
-let anything : any; // Not recommended
-let notKnown: unknown; // Instead of any, if we don't know what it returns
+const App:React.FC = () => {
 
-//Alias
-//-----------------------
+  const [todo, setTodo] = useState<string>("");
+  const [todos, setTodos] = useState<Todo[]>([]);
 
-/*type Person = {
-  name:string;
-  age?:number; // Question mark optional
-}
+  const handleAdd = (e:React.FormEvent) => {
+    e.preventDefault();
+    if(todo)
+    {
+      setTodos([...todos, {id: Date.now(), todo, isDone: false}])
+    }
+    setTodo("");
+  };
 
-let person: Person= {name: "John", age:20}
-
-let lotsOfPeople:Person[];*/
-
-type x ={
-  a: string;
-  b: number;
-}
-
-type y = x & {
-  c: string;
-  d: number;
-}
-
-interface Person {
-  name: string;
-  age?: number;
-}
-
-interface Guy extends Person {
-  profession: string;
-}
-
-
-//Functions
-//-----------------------
-
-function printName(name:string)
-{
-  console.log(name);
-  return name;
-}
-
-let printNameTwo: (name: string) => void; // Returns undefined
-let printNameThree: (name: string) => never; // Returns nothing
-
-function App() {
   return (
-    <p>Hello world</p>
+
+    <div className="App">
+    <span className="heading">Taskify</span>
+    <InputField todo={todo} setTodo={setTodo} handleAdd={handleAdd}></InputField>
+    <TodoList todos={todos} setTodos={setTodos}/>
+
+    </div>
+
   );
 }
 

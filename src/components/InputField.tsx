@@ -10,7 +10,6 @@ interface Props{
 const InputField = ({todo, setTodo, handleAdd}: Props) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
-
   return (
     <form action="" className="input" onSubmit={(e) => {handleAdd(e);inputRef.current?.blur();}}>
       <input ref={inputRef} type="input" placeholder="Enter a task" className="input__box" value={todo} onChange={(e)=> setTodo(e.target.value)}/>

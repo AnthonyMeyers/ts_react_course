@@ -43,20 +43,17 @@ const App:React.FC = () => {
       if(source.droppableId === "TodosList")
       {
         add = active[source.index];
-        active.splice(source.index, 1)
         dispatch({type: "completed", payload: add.id})
       }else {
         add = complete[source.index];
-        active.splice(source.index, 1)
         dispatch({type: "active", payload: add.id})
       }
 
       //Destination
       if(destination.droppableId === "TodosList")
       {
-        active.splice(destination.index,0, add);
         dispatch({type: "active", payload: add.id})
-      } else {complete.splice(destination.index,0, add);dispatch({type: "completed", payload: add.id})}
+      } else {dispatch({type: "completed", payload: add.id})}
     }
 
   return (

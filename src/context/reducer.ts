@@ -14,7 +14,8 @@ export const TodoReducer = (state:Todo[], action: Actions) => {
 switch (action.type)
 {
     case "add":
-        return [...state, {id: Date.now(), todo: action.payload, isDone: false, isCompleted: false}];
+        return [...state, {id: Date.now(), todo: action.payload, isDone: false, isCompleted: false}]
+        .sort((a:Todo, b:Todo) => a.todo.localeCompare(b.todo));
     
     case "remove":
         return state.filter((todo)=> todo.id !== action.payload);
@@ -33,6 +34,7 @@ switch (action.type)
     
     default:
         return state;
+    
 }
 
 }

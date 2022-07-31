@@ -4,17 +4,12 @@ import "./styles.css";
 import {TodoState} from "../context/Context";
 import {Droppable} from "react-beautiful-dnd";
 
-interface Props{
-    todos: Todo[];
-    setTodos: React.Dispatch<React.SetStateAction<Todo[]>>; 
-    completedTodos: Todo[];
-    setCompletedTodos: React.Dispatch<React.SetStateAction<Todo[]>>; 
-}
+const TodoList: React.FC= () => {
 
-const TodoList: React.FC<Props> = ({todos, setTodos, completedTodos,setCompletedTodos}: Props) => {
-
+  //Makes the list of active & completed todos from the state
   const {state} = TodoState();
-  const todolist = state;
+  const todolist = state.filter((todo: Todo) => todo.isCompleted === false);
+  const completedTodos = state.filter((todo: Todo) => todo.isCompleted === true);
 
   return (
     <>
@@ -26,7 +21,7 @@ const TodoList: React.FC<Props> = ({todos, setTodos, completedTodos,setCompleted
 
               <span className="todos_heading">Active tasks</span>
   
-              {todolist.map((todo:Todo, index:number)=><SingleTodo index={index} todo={todo} key={todo.id} todos={todos} setTodos={setTodos}/>)}
+              {todolist.map((todo:Todo, index:number)=><SingleTodo index={index} todo={todo} key={todo.id}/>)}
               {provided.placeholder}
             </div>)
         }
@@ -40,7 +35,7 @@ const TodoList: React.FC<Props> = ({todos, setTodos, completedTodos,setCompleted
 
           <span className="todos_heading">Completed tasks</span>
 
-          {completedTodos.map((todo:Todo, index:number)=><SingleTodo index={index} todo={todo} key={todo.id} todos={completedTodos} setTodos={setCompletedTodos}/>)}
+          {completedTodos.map((todo:Todo, index:number)=><SingleTodo index={index} todo={todo} key={todo.id}/>)}
           {provided.placeholder}
           </div>)
         }
@@ -53,5 +48,3 @@ const TodoList: React.FC<Props> = ({todos, setTodos, completedTodos,setCompleted
 }
 
 export default TodoList
-
-//<div className="todos">{todolist.map((todo:Todo) => <SingleTodo todo={todo} key={todo.id} todos={todos} setTodos={setTodos}/>)}</div>

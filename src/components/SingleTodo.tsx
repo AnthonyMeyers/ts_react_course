@@ -5,29 +5,32 @@ import React, {useState, useRef, useEffect} from "react";
 import {TodoState} from "../context/Context";
 import {Draggable} from "react-beautiful-dnd";
 
-
+//Props type declaration
 type Props = {
     index:number;
     todo: Todo;
-    todos: Todo[];
-    setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
 }
 
-const SingleTodo = ({index, todo, todos, setTodos}: Props) => {
+const SingleTodo = ({index, todo}: Props) => {
 
-    const {state, dispatch} = TodoState();
+    //Gets dispatch in the fray
+    const {dispatch} = TodoState();
 
+    //set the usestates
     const [edit, setEdit] = useState<boolean>(false);
     const [editTodo, setEditTodo] = useState<string>(todo.todo);
 
+    //Checks the todo as done, undone
     const handleDone = (id:number) => {
         dispatch({type: "done", payload: id})
     }
 
+    //Deletes the todo
     const handleDelete = (id:number)=> {
         dispatch({type: "remove", payload:id})
     }
 
+    //Lets the user edit the todo
     const handleEdit = (e:React.FormEvent, id:number) => {
         e.preventDefault();
         dispatch({type: "edit", payload: {id, todo: editTodo}})
@@ -41,28 +44,25 @@ const SingleTodo = ({index, todo, todos, setTodos}: Props) => {
   return (
 
     <Draggable draggableId={todo.id.toString()} index={index}>
-
         {
-            (provided, snapshot) => (
-                <form className={`todos__single ${snapshot.isDragging ? 'drag' : ""}`} onSubmit={(e)=>handleEdit(e,todo.id)}
+        (provided, snapshot) => (
+            <form className={`todos__single ${snapshot.isDragging ? 'drag' : ""}`} onSubmit={(e)=>handleEdit(e,todo.id)}
                 {...provided.draggableProps}
                 {...provided.dragHandleProps}
                 ref={provided.innerRef}
                 >
 
 
-        {edit ? (<input value={editTodo} onChange={(e)=>setEditTodo(e.target.value)}  className="todos__single--text"/>) :
-            todo.isDone? (<s className="todos__single--text">{todo.todo}</s>)
-            : (<span className="todos__single--text">{todo.todo}</span>)
-        }
-        
-        <div>
-        <span className="icon" onClick={()=>{if(!edit && !todo.isDone){setEdit(!edit)}}}><AiFillEdit/></span>
-        <span className="icon" onClick={()=> handleDelete(todo.id)}><AiFillDelete/></span>
-        <span className="icon" onClick={()=>handleDone(todo.id)}><MdDone/></span></div>
-    </form>
-
-
+            {edit ? (<input value={editTodo} onChange={(e)=>setEditTodo(e.target.value)}  className="todos__single--text"/>) :
+                todo.isDone? (<s className="todos__single--text">{todo.todo}</s>)
+                : (<span className="todos__single--text">{todo.todo}</span>)
+            }
+            
+            <div>
+            <span className="icon" onClick={()=>{if(!edit && !todo.isDone){setEdit(!edit)}}}><AiFillEdit/></span>
+            <span className="icon" onClick={()=> handleDelete(todo.id)}><AiFillDelete/></span>
+            <span className="icon" onClick={()=>handleDone(todo.id)}><MdDone/></span></div>
+        </form>
 
             )
         }

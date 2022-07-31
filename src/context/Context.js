@@ -13,7 +13,7 @@ const TodoProvider = ({ children }) => {
   );
 };
 
-export { TodoProvider };
+export default TodoProvider;
 
 export const TodoState = () => {
   return useContext(TodoContext);
